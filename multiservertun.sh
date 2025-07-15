@@ -100,6 +100,7 @@ for ((i=1; i<=NUM_TUNNELS; i++)); do
   # Create script for Iran server
   cat > "${TUNNEL_NAME}_iran.sh" <<EOF
 #!/bin/bash
+
 ip tunnel add 6to4_To_${TUNNEL_NAME} mode sit remote $IPKHAJ local $IPIRAN
 ip -6 addr add ${IPV6_SUBNET}::1/64 dev 6to4_To_${TUNNEL_NAME}
 ip link set 6to4_To_${TUNNEL_NAME} mtu 1480
@@ -110,6 +111,8 @@ ip addr add ${PRIVATE_RANGE}.1/24 dev GRE6Tun_To_${TUNNEL_NAME}
 ip -6 addr add ${IPV6_RANGE}:1/64 dev GRE6Tun_To_${TUNNEL_NAME}
 ip link set GRE6Tun_To_${TUNNEL_NAME} mtu 1436
 ip link set GRE6Tun_To_${TUNNEL_NAME} up
+
+exit 0
 EOF
 
   chmod +x "${TUNNEL_NAME}_iran.sh"
